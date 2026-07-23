@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { HomePage } from './pages/HomePage';
 import { TabsPage } from './pages/TabsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export const App: React.FC = () => {
+  const location = useLocation();
+
   useEffect(() => {
     document.documentElement.classList.add('has-navbar-fixed-top');
 
@@ -14,9 +16,8 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  const getLinkClass = ({ isActive }: { isActive: boolean }) => (
-    classNames('navbar-item', { 'is-active': isActive })
-  );
+  const isHomeActive = location.pathname === '/';
+  const isTabsActive = location.pathname.startsWith('/tabs');
 
   return (
     <>
@@ -26,12 +27,23 @@ export const App: React.FC = () => {
       >
         <div className="container">
           <div className="navbar-brand">
-            <NavLink to="/" className={getLinkClass}>
+            <Link
+              to="/"
+              className={classNames('navbar-item', {
+                'is-active': isHomeActive,
+              })}
+            >
               Home
-            </NavLink>
-            <NavLink to="/tabs" className={getLinkClass}>
+            </Link>
+
+            <Link
+              to="/tabs"
+              className={classNames('navbar-item', {
+                'is-active': isTabsActive,
+              })}
+            >
               Tabs
-            </NavLink>
+            </Link>
           </div>
         </div>
       </nav>

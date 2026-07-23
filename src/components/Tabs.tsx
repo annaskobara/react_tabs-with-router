@@ -25,9 +25,7 @@ export const Tabs: React.FC = () => {
                 'is-active': tab.id === tabId,
               })}
             >
-              <Link to={`/tabs/${tab.id}`}>
-                {tab.title}
-              </Link>
+              <Link to={`/tabs/${tab.id}`}>{tab.title}</Link>
             </li>
           ))}
         </ul>
